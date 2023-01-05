@@ -14,7 +14,7 @@ if [[ -z "$TEMPLATE" ]]; then
 fi
 
 if [[ -z "$TEMPLATEOUTPUT" ]]; then
-    echo "Template output file"
+    echo Template output file
     exit 1
 fi
 
@@ -84,5 +84,6 @@ output = text
 region = $AWS_REGION" > ~/.aws/config
 
 aws cloudformation package --template-file $TEMPLATE --output-template-file $TEMPLATEOUTPUT --s3-bucket $AWS_DEPLOY_BUCKET $AWS_BUCKET_PREFIX $FORCE_UPLOAD $USE_JSON
-aws cloudformation deploy --template-file aws $TEMPLATEOUTPUT --stack-name $AWS_STACK_NAME $CAPABILITIES $PARAMETER_OVERRIDES
+aws cloudformation deploy --template-file $TEMPLATEOUTPUT --stack-name $AWS_STACK_NAME $CAPABILITIES $PARAMETER_OVERRIDES
 
+rm -rf ~/.aws
