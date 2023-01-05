@@ -19,6 +19,7 @@ jobs:
     - uses: maximilianobz/actions-cloudformation@v1.0.0
       env:
         TEMPLATE: 'template.yml'
+        TEMPLATEOUTPUT: 'template-output.yml'
         AWS_STACK_NAME: 'my-stack'
         AWS_REGION: 'us-east-1'
         AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
