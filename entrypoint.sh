@@ -65,13 +65,24 @@ if [[ ! -z "$PARAMETER_OVERRIDES" ]]; then
     PARAMETER_OVERRIDES="--parameter-overrides $PARAMETER_OVERRIDES"
 fi
 
-aws configure --profile cloudformation-action <<-EOF
-${AWS_ACCESS_KEY_ID}
-${AWS_SECRET_ACCESS_KEY}
-${AWS_REGION}
-text
-EOF
+# if exist folder delete
+if [ -d ~/.aws ]; then
+    rm -rf ~/.aws
+fi
 
-aws cloudformation package --profile cloudformation-action --template-file $TEMPLATE --output-template-file $TEMPLATEOUTPUT --s3-bucket $AWS_DEPLOY_BUCKET $AWS_BUCKET_PREFIX $FORCE_UPLOAD $USE_JSON
-aws cloudformation deploy --profile cloudformation-action --template-file aws $TEMPLATEOUTPUT --stack-name $AWS_STACK_NAME $CAPABILITIES $PARAMETER_OVERRIDES
+mkdir ~/.aws
+touch ~/.aws/credentials
+touch ~/.aws/config
+
+echo "[default]
+aws_access_key_id = $AWS_ACCESS_KEY_ID
+aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+region = $AWS_REGION" > ~/.aws/credentials
+
+echo "[default]
+output = text
+region = $AWS_REGION" > ~/.aws/config
+
+aws cloudformation package --template-file $TEMPLATE --output-template-file $TEMPLATEOUTPUT --s3-bucket $AWS_DEPLOY_BUCKET $AWS_BUCKET_PREFIX $FORCE_UPLOAD $USE_JSON
+aws cloudformation deploy --template-file aws $TEMPLATEOUTPUT --stack-name $AWS_STACK_NAME $CAPABILITIES $PARAMETER_OVERRIDES
 
