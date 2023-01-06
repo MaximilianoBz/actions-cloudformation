@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM debian:11-slim
 
 LABEL version="1.0.0"
 
