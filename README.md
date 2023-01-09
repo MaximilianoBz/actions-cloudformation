@@ -47,19 +47,8 @@ jobs:
   * Type: `string`
 * `AWS_DEPLOY_BUCKET` - [**Required**]. AWS S3 Bucket where the Stack package is going to be stored.
   * Type: `string`
-* `AWS_BUCKET_PREFIX` - [Optional]. S3 Bucket's folder where to upload the package.
-  * Type: `string`
-* `FORCE_UPLOAD` - [Optional]. Whether to override existing packages in case they are an exact match.
-  * Type: `boolean`
 * `USE_JSON` - [Optional]. Whether to use JSON instead of YML as the output template format.
   * Type: `boolean`
-* `PARAMETER_OVERRIDES` - [Optional]. Parameters to input in the template.
-  * Type: `string | list[string]`
-  * Syntax: `AliasName=prod` `AliasName=prod ApiUrl=https://api.com/api/v1`
-
 
 ### License
-
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
-
-Original work by "Matheus Genteluci <mgenteluci97@gmail.com>"
